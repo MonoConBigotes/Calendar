@@ -1,10 +1,8 @@
-// Array para almacenar las actividades
 let activities = [];
 
-// Función para mostrar las actividades en el calendario
 function renderCalendar() {
-    const calendarDiv = document.querySelector('.calendar');
-    calendarDiv.innerHTML = '';
+    const activityList = document.getElementById('activityList');
+    activityList.innerHTML = '';
 
     activities.forEach((activity, index) => {
         const activityDiv = document.createElement('div');
@@ -13,24 +11,24 @@ function renderCalendar() {
             <span>${activity}</span>
             <button onclick="removeActivity(${index})">Eliminar</button>
         `;
-        calendarDiv.appendChild(activityDiv);
+        activityList.appendChild(activityDiv);
     });
 }
 
-// Función para agregar una actividad
 function addActivity() {
-    const activityInput = prompt('Ingrese la actividad:');
-    if (activityInput) {
+    const activityInput = document.getElementById('activityInput').value;
+    if (activityInput.trim() !== '') {
         activities.push(activityInput);
         renderCalendar();
+        document.getElementById('activityInput').value = '';
+    } else {
+        alert('Por favor ingrese una actividad válida.');
     }
 }
 
-// Función para eliminar una actividad
 function removeActivity(index) {
     activities.splice(index, 1);
     renderCalendar();
 }
 
-// Llama a renderCalendar para mostrar inicialmente las actividades
 renderCalendar();
